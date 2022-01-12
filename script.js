@@ -1,16 +1,29 @@
-function GameTimer() {
 
+
+
+
+
+
+// ----------------------------------------------------------------------
+// Everything below is here is the 10 minute game timer
+
+// Sets the timer to 10 minutes when "Start Game" is clicked
+function GameTimer() {
     var display = document.querySelector('#timeRemaining'),
         timer = new CountDownTimer(600);
   
+    // starts the timer
     timer.onTick(format).onTick(endGame).start();
   
+    // ends the game when the timer hits 00:00
+    // TODO: endgame message and update screen to endgame background and ghost sprite
     function endGame() {
         if (this.expired()) {
-            alert("Game over!");
+            alert("Game over! Thanks for playing!");
         }
     }
   
+    // formats the timer to 00:00
     function format(minutes, seconds) {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -19,6 +32,7 @@ function GameTimer() {
   }
 
 
+ // countdown functionality
   function CountDownTimer(duration, granularity) {
     this.duration = duration;
     this.granularity = granularity || 1000;
@@ -52,6 +66,7 @@ function GameTimer() {
     }());
   };
   
+
   CountDownTimer.prototype.onTick = function(ftn) {
     if (typeof ftn === 'function') {
       this.tickFtns.push(ftn);
@@ -59,10 +74,12 @@ function GameTimer() {
     return this;
   };
   
+  // stops timer once it hits 00:00
   CountDownTimer.prototype.expired = function() {
     return !this.running;
   };
   
+  // converts time remaining to minutes and seconds
   CountDownTimer.parse = function(seconds) {
     return {
       'minutes': (seconds / 60) | 0,
